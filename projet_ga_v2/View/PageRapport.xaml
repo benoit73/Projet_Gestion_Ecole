@@ -38,7 +38,7 @@
             <TextBlock FontSize="16" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource CenteredTextBlockStyle}" Text="Nombre d'élèves" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
             <Label Grid.Row="1" Grid.Column="0" BorderThickness="1,1,0,1" BorderBrush="Black" FontSize="16">Total :</Label>
-            <Label Grid.Row="1" Grid.Column="1" BorderThickness="1,1,1,1" BorderBrush="Black" FontSize="16">116</Label>
+            <Label x:Name="TbTotalEleves" Grid.Row="1" Grid.Column="1" BorderThickness="1,1,1,1" BorderBrush="Black" FontSize="16">116</Label>
 
             <Label Grid.Row="2" Grid.Column="0" BorderThickness="1,0,0,1" BorderBrush="Black" FontSize="16">En seconde :</Label>
             <Label Grid.Row="2" Grid.Column="1" BorderThickness="1,0,1,1" BorderBrush="Black" FontSize="16">16</Label>
@@ -68,7 +68,7 @@
             <TextBlock FontSize="16" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource CenteredTextBlockStyle}" Text="Nombre de classes" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
             <Label Grid.Row="1" Grid.Column="0" BorderThickness="1,1,0,1" BorderBrush="Black" FontSize="16">Total :</Label>
-            <Label Grid.Row="1" Grid.Column="1" BorderThickness="1,1,1,1" BorderBrush="Black" FontSize="16">116</Label>
+            <Label x:Name="TbTotalClasses" Grid.Row="1" Grid.Column="1" BorderThickness="1,1,1,1" BorderBrush="Black" FontSize="16">116</Label>
 
             <Label Grid.Row="2" Grid.Column="0" BorderThickness="1,0,0,1" BorderBrush="Black" FontSize="16">En seconde :</Label>
             <Label Grid.Row="2" Grid.Column="1" BorderThickness="1,0,1,1" BorderBrush="Black" FontSize="16">16</Label>
@@ -97,7 +97,7 @@
             <TextBlock FontSize="16" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource CenteredTextBlockStyle}" Text="Nombre de professeurs" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
             <Label Grid.Row="1" Grid.Column="0" BorderThickness="1,1,0,1" BorderBrush="Black" FontSize="16">Total :</Label>
-            <Label Grid.Row="1" Grid.Column="1" BorderThickness="1,1,1,1" BorderBrush="Black" FontSize="16">116</Label>
+            <Label x:Name="TbTotalProf" Grid.Row="1" Grid.Column="1" BorderThickness="1,1,1,1" BorderBrush="Black" FontSize="16">116</Label>
 
             <Label Grid.Row="2" Grid.Column="0" BorderThickness="1,0,0,1" BorderBrush="Black" FontSize="16">En français :</Label>
             <Label Grid.Row="2" Grid.Column="1" BorderThickness="1,0,1,1" BorderBrush="Black" FontSize="16">16</Label>

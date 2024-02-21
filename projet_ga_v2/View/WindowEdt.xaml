@@ -9,12 +9,17 @@
     <Grid Background="WhiteSmoke">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="7*"/>
+        </Grid.RowDefinitions>
         
 
-        <Grid x:Name="GridAdd" Grid.ColumnSpan="2" Panel.ZIndex="1" Background="#7FA59494" Visibility="Hidden">
+        <Grid x:Name="gridAdd" Grid.ColumnSpan="2" Grid.RowSpan="2" Panel.ZIndex="1" Background="#7FA59494" Visibility="Hidden">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -30,15 +35,31 @@
             <Rectangle Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2" Fill="#FFFDFDFD"/>
             <TextBlock Text="Matiere" Grid.Column="1" Grid.Row="1"/>
             <TextBlock Text="Professeur" Grid.Column="1" Grid.Row="2"/>
-            <ListBox x:Name="LbMatiere" Grid.Column="2" Grid.Row="1" SelectionChanged="LbMatiere_SelectionChanged"/>
-            <ListBox x:Name="LbProf" Grid.Column="2" Grid.Row="2"/>
+            <ListBox x:Name="LbMatiere" Grid.Column="2" Grid.Row="1" SelectionChanged="LbMatiere_SelectionChanged">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding NomMatiere}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox x:Name="LbProf" Grid.Column="2" Grid.Row="2">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding PrenomEnseignant}"/>
+                            <TextBlock Text="{Binding NomEnseignant}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
             <Button x:Name="BtnValidMatProf" Grid.Column="1" Grid.Row="3" Content="Valider" Click="BtnValidMatProf_Click"/>
             <Button x:Name="BtnQuitMatProf" Grid.Column="2" Grid.Row="3" Content="Quitter" Click="BtnQuitMatProf_Click"/>
 
 
         </Grid>
 
-        <Grid Grid.Column="0" x:Name="GridMatiere">
+        <Grid Grid.Column="0" x:Name="gridMatiere" Grid.RowSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -52,22 +73,47 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <TextBlock Text="Nom de la classe" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <TextBlock Text="Nom de la classe" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="TbNomClasse"/>
 
 
 
             <TextBlock Text="Matières : " Grid.Row="1" VerticalAlignment="Center"/>
-            <Button x:Name="BtnAddMatiere" Grid.Row="2" Click="BtnAddMatiere_Click" Style="{StaticResource RoundedButtonStyle}">
-                <TextBlock Text="Ajouter une matière"/>
-            </Button>
+            <StackPanel Orientation="Horizontal" Grid.Row="2">
+                <Button x:Name="BtnAddMatiere" Grid.Row="2" Click="BtnAddMatiere_Click" Style="{StaticResource RoundedButtonStyle}">
+                    <TextBlock Text="Ajouter une matière"/>
+                </Button>
+                <ListBox x:Name="LbDuree">
+                    <ListBoxItem Content="30min" Tag="1"/>
+                    <ListBoxItem Content="1h" Tag="2"/>
+                    <ListBoxItem Content="1h30" Tag="3"/>
+                    <ListBoxItem Content="2h" Tag="4"/>
+                    <ListBoxItem Content="2h30" Tag="5"/>
+                    <ListBoxItem Content="3h" Tag="6"/>
+                    <ListBoxItem Content="3h30" Tag="7"/>
+                    <ListBoxItem Content="4h" Tag="8"/>
+                    <ListBoxItem Content="4h30h" Tag="9"/>
+                    <ListBoxItem Content="5h" Tag="10"/>
+                    <ListBoxItem Content="5h30" Tag="11"/>
+                    <ListBoxItem Content="6h" Tag="12"/>
+                    <ListBoxItem Content="6h30" Tag="13"/>
+                    <ListBoxItem Content="7h" Tag="14"/>
+                    <ListBoxItem Content="7h30" Tag="15"/>
+                    <ListBoxItem Content="8h" Tag="16"/>
+                </ListBox>
+            </StackPanel>
 
 
+            <ListBox x:Name="CbMatiereClasse" Grid.Row="3" Grid.RowSpan="6"/>
             <Button x:Name="BtnValiderEdt" Content="Valider" Grid.Row="9" Click="BtnValiderEdt_Click" Style="{StaticResource RoundedButtonStyle}"/>
         </Grid>
 
+        <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button x:Name="BtnPrevious" Content="Précédent" Click="BtnPrevious_Click"/>
+            <TextBlock x:Name="TbSemaine" Text="Semaine 1"/>
+            <Button x:Name="BtnNext" Content="Suivant" Click="BtnNext_Click"/>
+        </StackPanel>
 
-
-        <Grid x:Name="GridEdt" Margin="30,30,30,30" Background="Beige" Grid.Column="1">
+        <Grid x:Name="gridEdt" Margin="30,30,30,30" Background="Beige" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>

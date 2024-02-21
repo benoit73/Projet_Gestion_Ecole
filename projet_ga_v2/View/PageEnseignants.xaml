@@ -31,28 +31,60 @@
             <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="Nom"/>
             <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="Prénom" Grid.Row="1"/>
             <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="Email" Grid.Column="2"/>
-            <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="Matière" Grid.Column="2" Grid.Row="1"/>
-            <Button x:Name="BtnAdd" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Content="Ajouter !" Style="{StaticResource RoundedButtonStyle}"/>
+            <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="Matières" Grid.Column="2" Grid.Row="1"/>
+            <Button x:Name="BtnAdd" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="1" Content="Ajouter !" Style="{StaticResource RoundedButtonStyle}" Click="BtnAdd_Click"/>
+            <Button x:Name="BtnDelete" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="1" Content="Supprimer !" Style="{StaticResource RoundedButtonStyle}" Click="BtnSupprimer_Click"/>
+            <Button x:Name="BtnEdit" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="1" Content="Modifier !" Style="{StaticResource RoundedButtonStyle}" Click="BtnEdit_Click"/>
             <TextBox x:Name="TbNom" Grid.Column="1" Style="{StaticResource RoundedTextBoxStyle}"/>
             <TextBox x:Name="TbPrenom" Grid.Column="1" Grid.Row="1" Style="{StaticResource RoundedTextBoxStyle}"/>
             <TextBox x:Name="TbEmail" Grid.Column="3" Style="{StaticResource RoundedTextBoxStyle}"/>
-            <TextBox x:Name="TbMatiere" Grid.Column="3" Grid.Row="1" Style="{StaticResource RoundedTextBoxStyle}"/>
+            <ListBox x:Name="CbMatiere" Grid.Column="3" Grid.Row="1" DisplayMemberPath="NomMatiere" SelectionMode="Multiple" />
 
 
 
         </Grid>
-        <DataGrid x:Name="dataGrid" Grid.Row="1" AutoGenerateColumns="False">
+
+        <!--<ListView x:Name="listView" Grid.Row="1">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Nom" DisplayMemberBinding="{Binding NomEnseignant}" />
+                    <GridViewColumn Header="Prenom" DisplayMemberBinding="{Binding PrenomEnseignant}" />
+                    <GridViewColumn Header="Matiere" DisplayMemberBinding="{Binding Matiere.NomMatiere}" />
+                </GridView>
+            </ListView.View>
+        </ListView>-->
+        
+        <DataGrid x:Name="dataGrid" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" SelectionChanged="dataGrid_SelectionChanged">
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="DataGridColumnHeader">
                     <Setter Property="HorizontalContentAlignment" Value="Center" />
                 </Style>
             </DataGrid.ColumnHeaderStyle>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" Width="*" />
-                <DataGridTextColumn Header="Prénom" Binding="{Binding Prenom}" Width="*" />
-                <DataGridTextColumn Header="Mail" Binding="{Binding Mail}" Width="*" />
-                <DataGridTextColumn Header="Matière" Binding="{Binding Matieres}" Width="*" />
-                <DataGridTextColumn Header="Classes" Binding="{Binding Classes}" Width="*" />
+                <DataGridTextColumn Header="Nom" Binding="{Binding NomEnseignant}" Width="*" />
+                <DataGridTextColumn Header="Prénom" Binding="{Binding PrenomEnseignant}" Width="*" />
+                <DataGridTextColumn Header="Mail" Binding="{Binding Email}" Width="*" />
+                <DataGridTemplateColumn Header="Matieres">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ListBox ItemsSource="{Binding Matieres}" DisplayMemberPath="NomMatiere" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Classes">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ListBox ItemsSource="{Binding Classes}" DisplayMemberPath="NomClasse" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Supprimer" Style="{StaticResource RoundedButtonStyle}" Click="BtnSupprimer_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

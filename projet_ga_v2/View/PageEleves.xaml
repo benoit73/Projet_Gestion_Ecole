@@ -28,18 +28,31 @@
                 </Grid.RowDefinitions>
                 <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="Nom"/>
                 <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="Prénom" Grid.Row="1"/>
-                <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="Email" Grid.Column="2"/>
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="Email de l'élève" Grid.Row="0"/>
+                    <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="Email du parent" Grid.Row="1"/>
+                </Grid>
                 <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="Date de naissance" Grid.Column="2" Grid.Row="1"/>
-                <Button x:Name="BtnAdd" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Content="Ajouter !" Style="{StaticResource RoundedButtonStyle}"/>
-                <TextBox x:Name="TbNom" Grid.Column="1" Style="{StaticResource RoundedTextBoxStyle}"/>
-                <TextBox x:Name="TbPrenom" Grid.Column="1" Grid.Row="1" Style="{StaticResource RoundedTextBoxStyle}"/>
-                <TextBox x:Name="TbEmail" Grid.Column="3" Style="{StaticResource RoundedTextBoxStyle}"/>
-                <TextBox x:Name="TbDate" Grid.Column="3" Grid.Row="1" Style="{StaticResource RoundedTextBoxStyle}"/>
+            <Button x:Name="BtnAdd" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="1" Content="Ajouter !" Style="{StaticResource RoundedButtonStyle}" Click="BtnAdd_Click"/>
+            <Button x:Name="BtnSupprimer" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="1" Content="Supprimer !" Style="{StaticResource RoundedButtonStyle}" Click="BtnSupprimer_Click"/>
+            <Button x:Name="BtnEdit" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="1" Content="Modifier !" Style="{StaticResource RoundedButtonStyle}" Click="BtnEdit_Click"/>
+            <TextBox x:Name="TbNom" Grid.Column="1" Style="{StaticResource RoundedTextBoxStyle}"/>
+            <TextBox x:Name="TbPrenom" Grid.Column="1" Grid.Row="1" Style="{StaticResource RoundedTextBoxStyle}"/>
+            <StackPanel Orientation="Vertical" Grid.Column="3">
+                <TextBox x:Name="TbEmail" Style="{StaticResource RoundedTextBoxStyle}"/>
+                <TextBox x:Name="TbEmailParent" Style="{StaticResource RoundedTextBoxStyle}"/>
+            </StackPanel>
+
+            <TextBox x:Name="TbDate" Grid.Column="3" Grid.Row="1" Style="{StaticResource RoundedTextBoxStyle}"/>
 
 
 
             </Grid>
-            <DataGrid x:Name="dataGrid" Grid.Row="1" AutoGenerateColumns="False">
+            <DataGrid x:Name="dataGrid" Grid.Row="1" AutoGenerateColumns="False" SelectionChanged="dataGrid_SelectionChanged">
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="DataGridColumnHeader">
                     <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -49,7 +62,7 @@
                     <DataGridTextColumn Header="Nom" Binding="{Binding NomEleve}" Width="*" />
                     <DataGridTextColumn Header="Prénom" Binding="{Binding PrenomEleve}" Width="*" />
                     <DataGridTextColumn Header="Mail" Binding="{Binding MailEleve}" Width="*" />
-                    <DataGridTextColumn Header="Date de naissance" Binding="{Binding DateEleve}" Width="*" />
+                <DataGridTextColumn Header="Date de naissance" Binding="{Binding DateNaissance}" Width="*" />
                     <DataGridTextColumn Header="Classe" Binding="{Binding Classe.NomClasse}" Width="*" />
                 </DataGrid.Columns>
             </DataGrid>

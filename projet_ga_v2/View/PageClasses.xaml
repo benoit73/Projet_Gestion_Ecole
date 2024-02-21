@@ -29,46 +29,70 @@
             </Grid.RowDefinitions>
             <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="Nom de la classe"/>
             <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="Niveau" Grid.Row="1"/>
-            <DataGrid x:Name="DgEleves" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2">
+            <DataGrid x:Name="DgEleves" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="DataGridColumnHeader">
                         <Setter Property="HorizontalContentAlignment" Value="Center" />
                     </Style>
                 </DataGrid.ColumnHeaderStyle>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" Width="*" />
-                    <DataGridTextColumn Header="Prénom" Binding="{Binding Prénom}" Width="*" />
+                    <DataGridTextColumn Header="Nom" Binding="{Binding NomEleve}" Width="*" />
+                    <DataGridTextColumn Header="Prénom" Binding="{Binding PrenomEleve}" Width="*" />
+                    <DataGridTemplateColumn Header="Supprimer">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Supprimer" Style="{StaticResource RoundedButtonStyle}" Click="BtnSupprEleve_Click"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
-            <Button x:Name="BtnAdd" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="1" Content="Ajouter !" Style="{StaticResource RoundedButtonStyle}"/>
-            <Button x:Name="BtnEdt" Grid.Row="2" Grid.Column="0"  Content="Modifier l'EDT" Style="{StaticResource RoundedButtonStyle}"/>
+            <Button x:Name="BtnAdd" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="1" Content="Ajouter !" Style="{StaticResource RoundedButtonStyle}" Click="BtnAdd_Click"/>
+            <Button x:Name="BtnEdt" Grid.Row="2" Grid.Column="0"  Content="Modifier l'EDT" Style="{StaticResource RoundedButtonStyle}" Click="BtnEdt_Click"/>
             <TextBox x:Name="TbNom" Grid.Column="1" Style="{StaticResource RoundedTextBoxStyle}"/>
-            <ComboBox Grid.Column="1" Grid.Row="1" Style="{StaticResource SimpleComboBoxStyle}">
-                <ComboBoxItem>Niveau seconde</ComboBoxItem>
-                <ComboBoxItem>Niveau première</ComboBoxItem>
-                <ComboBoxItem>Niveau terminal</ComboBoxItem>
+            <ComboBox x:Name="CbNiveau" Grid.Column="1" Grid.Row="1" Style="{StaticResource SimpleComboBoxStyle}">
+                <ComboBoxItem>Seconde</ComboBoxItem>
+                <ComboBoxItem>Premiere</ComboBoxItem>
+                <ComboBoxItem>Terminal</ComboBoxItem>
             </ComboBox>
             <Grid Grid.Column="2">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition Height="2*"/>
                 </Grid.RowDefinitions>
-                <TextBox x:Name="TbEleve" Grid.Row="0" Text="Chercher élève..." LostFocus="TextBox_LostFocus" GotFocus="TextBox_GotFocus"/>
-                <ListBox Grid.Row="1"/>
+                <TextBox x:Name="TbEleve" Grid.Row="0" TextChanged="TbEleve_TextChanged"/>
+                <ListBox x:Name="LbAllEleves" Grid.Row="1">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding PrenomEleve}" />
+                                <TextBlock Text=" " />
+                                <TextBlock Text="{Binding NomEleve}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </Grid>
-            <Button x:Name="BtnValiderEleve" Content="Ajouter l'éleve" Grid.Column="3" Style="{StaticResource RoundedButtonStyle}"/>
+            <Button x:Name="BtnValiderEleve" Content="Ajouter l'éleve" Grid.Column="3" Style="{StaticResource RoundedButtonStyle}" Click="BtnValiderEleve_Click"/>
 
         </Grid>
-        <DataGrid x:Name="dataGrid" Grid.Row="1" AutoGenerateColumns="False">
+        <DataGrid x:Name="dataGrid" Grid.Row="1" AutoGenerateColumns="False" SelectionChanged="dataGrid_SelectionChanged" CanUserAddRows="False" IsReadOnly="False">
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="DataGridColumnHeader">
                     <Setter Property="HorizontalContentAlignment" Value="Center" />
                 </Style>
             </DataGrid.ColumnHeaderStyle>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Nom de la classe" Binding="{Binding Nom}" Width="*" />
+                <DataGridTextColumn Header="Nom de la classe" Binding="{Binding NomClasse}" Width="*" />
                 <DataGridTextColumn Header="Niveau" Binding="{Binding Niveau}" Width="*" />
-                <DataGridTextColumn Header="Nombre d'élèves" Binding="{Binding Mail}" Width="*" />
+                <DataGridTextColumn Header="Nombre d'élèves" Binding="{Binding NbEleves}" Width="*" />
+                <DataGridTemplateColumn Header="Supprimer">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Supprimer" Style="{StaticResource RoundedButtonStyle}" Click="BtnSuppr_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

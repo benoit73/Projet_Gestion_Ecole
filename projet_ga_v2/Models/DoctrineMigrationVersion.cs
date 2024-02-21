@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace projet_ga_v2.BDD;
+namespace projet_ga_v2.Models;
 
 public partial class DoctrineMigrationVersion
 {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using projet_ga_v2.DAO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,23 @@ namespace projet_ga_v2.View
     /// </summary>
     public partial class PageRapport : Page
     {
+        DAO_Classe daoClasse;
+        DAO_Eleve daoEleve;
+        DAO_Enseignant daoEnseignant;
         public PageRapport()
         {
             InitializeComponent();
+            daoClasse = new DAO_Classe();
+            daoEleve = new DAO_Eleve();
+            daoEnseignant = new DAO_Enseignant();
+            Init();
+        }
+
+        public void Init()
+        {
+            TbTotalClasses.Content = daoClasse.GetAllClasses().Count;
+            TbTotalEleves.Content = daoEleve.GetAllEleves().Count;
+            TbTotalProf.Content = daoEnseignant.GetAllEnseignants().Count;
         }
     }
 }

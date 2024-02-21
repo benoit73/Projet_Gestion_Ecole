@@ -27,22 +27,22 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="Matière" Grid.Column="1"/>
-            <Button x:Name="BtnAdd" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Content="Ajouter !" Style="{StaticResource RoundedButtonStyle}"/>
+            <Button x:Name="BtnAdd" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="1" Content="Ajouter !" Style="{StaticResource RoundedButtonStyle}" Click="BtnAdd_Click"/>
+            <Button x:Name="BtnSupprimer" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="1" Content="Supprimer !" Style="{StaticResource RoundedButtonStyle}" Click="BtnSupprimer_Click"/>
             <TextBox x:Name="TbMatiere" Grid.Column="2" Style="{StaticResource RoundedTextBoxStyle}"/>
 
 
 
         </Grid>
-        <DataGrid x:Name="dataGrid" Grid.Row="1" AutoGenerateColumns="False">
+        <DataGrid x:Name="dataGrid" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="False">
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="DataGridColumnHeader">
                     <Setter Property="HorizontalContentAlignment" Value="Center" />
                 </Style>
             </DataGrid.ColumnHeaderStyle>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Matière" Binding="{Binding Matiere}" Width="*" />
-                <DataGridTextColumn Header="Nombre de professeurs" Binding="{Binding Nombre}" Width="*" />
-                
+                <DataGridTextColumn Header="Matière" Binding="{Binding NomMatiere}" Width="*" />
+                <DataGridTextColumn Header="Nombre de professeurs" Binding="{Binding NbEnseignants}" Width="*" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
