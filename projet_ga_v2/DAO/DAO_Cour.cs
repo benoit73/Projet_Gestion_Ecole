@@ -12,6 +12,7 @@ namespace projet_ga_v2.DAO
 
         public void AddCour(Cour cour)
         {
+            cour.EnseignantMatiereClasse = null;
             using (var context = new Benoit73SymfonyV5Context())
             {
                 context.Cours.Add(cour);

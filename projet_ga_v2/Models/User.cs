@@ -7,6 +7,10 @@ public partial class User
 {
     public int Id { get; set; }
 
+    public int? EleveId { get; set; }
+
+    public int? ParentsId { get; set; }
+
     public string Email { get; set; } = null!;
 
     /// <summary>
@@ -17,10 +21,6 @@ public partial class User
     public string Password { get; set; } = null!;
 
     public bool IsVerified { get; set; }
-
-    public int? EleveId { get; set; }
-
-    public int? ParentsId { get; set; }
 
     public virtual Eleve? Eleve { get; set; }
 

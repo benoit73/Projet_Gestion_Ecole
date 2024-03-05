@@ -80,7 +80,7 @@ namespace projet_ga_v2.View
             classe.NomClasse = TbNom.Text;
             classe.Niveau = CbNiveau.Text;
 
-            if (classe.NomClasse == null || classe.Niveau == null)
+            if (classe.NomClasse == null || classe.Niveau == null )
             {
                 MessageBox.Show("Veuillez remplir tous les champs");
             }
@@ -164,11 +164,12 @@ namespace projet_ga_v2.View
 
         private void BtnSupprEleve_Click(object sender, RoutedEventArgs e)
         {
-                Eleve eleve = (Eleve)DgEleves.SelectedItem;
-                dao_classe.RemoveEleveFromClasse(classe, eleve);
-                LoadElevesOfClasse();
-                LoadAllElevesNotInClasse(classe);
-                MessageBox.Show("Elève supprimé");
+            Eleve eleve = (Eleve)DgEleves.SelectedItem;
+            dao_classe.RemoveEleveFromClasse(classe, eleve);
+            LoadElevesOfClasse();
+            LoadAllElevesNotInClasse(classe);
+            LoadClasses();
+            MessageBox.Show("Elève supprimé");
             
         }
 

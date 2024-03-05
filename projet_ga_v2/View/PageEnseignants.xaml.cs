@@ -42,7 +42,7 @@ namespace projet_ga_v2.View
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
-            if (TbNom.Text != null && TbPrenom.Text != null && TbEmail.Text != null && CbMatiere.SelectedItems != null)
+            if (TbNom.Text != string.Empty && TbPrenom.Text != string.Empty && TbEmail.Text != string.Empty && CbMatiere.SelectedItems.Count != 0)
             {
                 Enseignant enseignant = new Enseignant();
                 enseignant.NomEnseignant = TbNom.Text;
@@ -86,27 +86,31 @@ namespace projet_ga_v2.View
                 MessageBox.Show("Veuillez sélectionner un enseignant");
                 return;
             }
-            if (CbMatiere.SelectedItems == null || TbNom.Text == null || TbPrenom.Text == null || TbEmail.Text == null)
+            if (TbNom.Text != string.Empty && TbPrenom.Text != string.Empty && TbEmail.Text != string.Empty && CbMatiere.SelectedItems.Count != 0)
+            {
+                Enseignant selectedEnseignant = dataGrid.SelectedItem as Enseignant;
+                Enseignant enseignant = dataGrid.SelectedItem as Enseignant;
+                enseignant.Id = selectedEnseignant.Id;
+                ICollection<Matiere> matieres = new List<Matiere>();
+                foreach (Matiere matiere in CbMatiere.SelectedItems)
+                {
+                    matieres.Add(matiere);
+                }
+                enseignant.Matieres = matieres;
+                enseignant.NomEnseignant = TbNom.Text;
+                enseignant.PrenomEnseignant = TbPrenom.Text;
+                enseignant.Email = TbEmail.Text;
+                daoEnseignant.UpdateEnseignant(enseignant);
+                MessageBox.Show("Enseignant modifié");
+                Refresh();
+            }
+            else
             {
                 MessageBox.Show("Veuillez remplir tous les champs");
-                return;
             }
 
-            Enseignant selectedEnseignant = dataGrid.SelectedItem as Enseignant;
-            Enseignant enseignant = dataGrid.SelectedItem as Enseignant;
-            enseignant.Id = selectedEnseignant.Id;
-            ICollection<Matiere> matieres = new List<Matiere>();
-            foreach (Matiere matiere in CbMatiere.SelectedItems)
-            {
-                matieres.Add(matiere);
-            }
-            enseignant.Matieres = matieres; 
-            enseignant.NomEnseignant = TbNom.Text;
-            enseignant.PrenomEnseignant = TbPrenom.Text;
-            enseignant.Email = TbEmail.Text;
-            daoEnseignant.UpdateEnseignant(enseignant);
-            MessageBox.Show("Enseignant modifié");
-            Refresh();
+
+
         }
 
         private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)

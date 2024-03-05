@@ -13,11 +13,7 @@ public partial class Enseignant
 
     public string? Email { get; set; }
 
-    public virtual ICollection<Cour> Cours { get; set; } = new List<Cour>();
-
     public virtual ICollection<EnseignantMatiereClasse> EnseignantMatiereClasses { get; set; } = new List<EnseignantMatiereClasse>();
-
-    public virtual ICollection<Classe> Classes { get; set; } = new List<Classe>();
 
     public virtual ICollection<Matiere> Matieres { get; set; } = new List<Matiere>();
 }

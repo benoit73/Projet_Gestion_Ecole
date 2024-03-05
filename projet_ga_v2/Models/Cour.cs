@@ -7,9 +7,7 @@ public partial class Cour
 {
     public int Id { get; set; }
 
-    public int EnseignantId { get; set; }
-
-    public int ClasseId { get; set; }
+    public int EnseignantMatiereClasseId { get; set; }
 
     public int Duree { get; set; }
 
@@ -23,7 +21,5 @@ public partial class Cour
 
     public virtual ICollection<Absence> Absences { get; set; } = new List<Absence>();
 
-    public virtual Classe Classe { get; set; } = null!;
-
-    public virtual Enseignant Enseignant { get; set; } = null!;
+    public virtual EnseignantMatiereClasse EnseignantMatiereClasse { get; set; } = null!;
 }

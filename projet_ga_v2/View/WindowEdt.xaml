@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:projet_ga_v2.View"
         mc:Ignorable="d"
-        Title="WindowEdt" Height="450" Width="800">
+        Title="WindowEdt" Height="900" Width="1600">
     <Grid Background="WhiteSmoke">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -73,16 +73,16 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <TextBlock Text="Nom de la classe" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="TbNomClasse"/>
+            <TextBlock Text="Nom de la classe" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="TbNomClasse" Style="{StaticResource CenteredTextBlockStyle}"/>
 
 
 
-            <TextBlock Text="Matières : " Grid.Row="1" VerticalAlignment="Center"/>
+            <TextBlock Text="Matières : " Grid.Row="1" VerticalAlignment="Center" Style="{StaticResource CenteredTextBlockStyle}"/>
             <StackPanel Orientation="Horizontal" Grid.Row="2">
-                <Button x:Name="BtnAddMatiere" Grid.Row="2" Click="BtnAddMatiere_Click" Style="{StaticResource RoundedButtonStyle}">
-                    <TextBlock Text="Ajouter une matière"/>
+                <Button x:Name="BtnAddMatiere" Grid.Row="2" Click="BtnAddMatiere_Click" Style="{StaticResource RoundedButtonStyle}" HorizontalAlignment="Left">
+                    <TextBlock Text="Ajouter une matière" />
                 </Button>
-                <ListBox x:Name="LbDuree">
+                <ListBox x:Name="LbDuree" HorizontalAlignment="Right">
                     <ListBoxItem Content="30min" Tag="1"/>
                     <ListBoxItem Content="1h" Tag="2"/>
                     <ListBoxItem Content="1h30" Tag="3"/>
@@ -108,9 +108,9 @@
         </Grid>
 
         <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button x:Name="BtnPrevious" Content="Précédent" Click="BtnPrevious_Click"/>
-            <TextBlock x:Name="TbSemaine" Text="Semaine 1"/>
-            <Button x:Name="BtnNext" Content="Suivant" Click="BtnNext_Click"/>
+            <Button x:Name="BtnPrevious" Content="Précédent" Click="BtnPrevious_Click" Style="{StaticResource RoundedButtonStyle}"/>
+            <TextBlock x:Name="TbSemaine" Text="Semaine 1"  Style="{StaticResource CenteredTextBlockStyle}" />
+            <Button x:Name="BtnNext" Content="Suivant" Click="BtnNext_Click" Style="{StaticResource RoundedButtonStyle}"/>
         </StackPanel>
 
         <Grid x:Name="gridEdt" Margin="30,30,30,30" Background="Beige" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1" >
@@ -149,24 +149,24 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <TextBlock Text="Lundi" Grid.Column="1" Grid.Row="0"/>
-            <TextBlock Text="Mardi" Grid.Column="2" Grid.Row="0"/>
-            <TextBlock Text="Mercredi" Grid.Column="3" Grid.Row="0"/>
-            <TextBlock Text="Jeudi" Grid.Column="4" Grid.Row="0"/>
-            <TextBlock Text="Vendredi" Grid.Column="5" Grid.Row="0"/>
-            <TextBlock Text="Samedi" Grid.Column="6" Grid.Row="0"/>
+            <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="Lundi" Grid.Column="1" Grid.Row="0"/>
+            <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="Mardi" Grid.Column="2" Grid.Row="0"/>
+            <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="Mercredi" Grid.Column="3" Grid.Row="0"/>
+            <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="Jeudi" Grid.Column="4" Grid.Row="0"/>
+            <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="Vendredi" Grid.Column="5" Grid.Row="0"/>
+            <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="Samedi" Grid.Column="6" Grid.Row="0"/>
 
-            <TextBlock Text="8h" Grid.Column="0" Grid.Row="1"/>
-            <TextBlock Text="9h" Grid.Column="0" Grid.Row="3"/>
-            <TextBlock Text="10h" Grid.Column="0" Grid.Row="5"/>
-            <TextBlock Text="11h" Grid.Column="0" Grid.Row="7"/>
-            <TextBlock Text="12h" Grid.Column="0" Grid.Row="9"/>
-            <TextBlock Text="13h" Grid.Column="0" Grid.Row="11"/>
-            <TextBlock Text="14h" Grid.Column="0" Grid.Row="13"/>
-            <TextBlock Text="15h" Grid.Column="0" Grid.Row="15"/>
-            <TextBlock Text="16h" Grid.Column="0" Grid.Row="17"/>
-            <TextBlock Text="17h" Grid.Column="0" Grid.Row="19"/>
-            <TextBlock Text="18h" Grid.Column="0" Grid.Row="21"/>
+            <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="8h" Grid.Column="0" Grid.Row="1"/>
+            <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="9h" Grid.Column="0" Grid.Row="3"/>
+            <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="10h" Grid.Column="0" Grid.Row="5"/>
+            <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="11h" Grid.Column="0" Grid.Row="7"/>
+            <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="12h" Grid.Column="0" Grid.Row="9"/>
+            <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="13h" Grid.Column="0" Grid.Row="11"/>
+            <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="14h" Grid.Column="0" Grid.Row="13"/>
+            <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="15h" Grid.Column="0" Grid.Row="15"/>
+            <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="16h" Grid.Column="0" Grid.Row="17"/>
+            <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="17h" Grid.Column="0" Grid.Row="19"/>
+            <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="18h" Grid.Column="0" Grid.Row="21"/>
 
         </Grid>
     </Grid>

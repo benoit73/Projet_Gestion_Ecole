@@ -16,8 +16,10 @@ namespace projet_ga_v2.DAO
             {
                 var classe = context.Classes.
                     Include("Eleves").
+                    Include("EnseignantMatiereClasses").
+                    Include("EnseignantMatiereClasses.Enseignant").
                     Include("EnseignantMatiereClasses.Matiere").
-                    Include("Enseignants.Cours").
+                    Include("EnseignantMatiereClasses.Cours").
                     FirstOrDefault(c => c.Id == classee.Id);
                 return classe;
             }
@@ -43,14 +45,50 @@ namespace projet_ga_v2.DAO
             }
         }
 
-        public void DeleteClasse(Classe classe)
+        public void DeleteClasse(Classe classe_)
         {
             using (var context = new Benoit73SymfonyV5Context())
             {
+                Classe classe = context.Classes.FirstOrDefault(c => c.Id == classe_.Id);
+
+                var eleves = context.Eleves.Where(e => e.ClasseId == classe.Id).ToList();
+
+                // Mettre à jour la colonne classe_id de chaque élève à NULL
+                foreach (var eleve in eleves)
+                {
+                    eleve.ClasseId = null;
+                }
+
+                // Récupérer tous les enseignantmatiereclasse liés à la classe
+                var enseignantMatiereClasses = context.EnseignantMatiereClasses
+                                                      .Where(emc => emc.ClasseId == classe.Id)
+                                                      .ToList();
+                foreach (var emc in enseignantMatiereClasses)
+                {
+                    // Supprimer tous les cours liés à l'enseignantmatiereclasse
+                    var cours = context.Cours
+                                      .Where(c => c.EnseignantMatiereClasseId == emc.Id)
+                                      .ToList();
+                    foreach (var cour in cours)
+                    {
+                        var absences = context.Absences
+                                              .Where(a => a.CourId == cour.Id)
+                                              .ToList();
+                        context.Absences.RemoveRange(absences);
+                    }
+                    context.Cours.RemoveRange(cours);
+                }
+                // Supprimer tous les enseignantmatiereclasse liés
+                context.EnseignantMatiereClasses.RemoveRange(enseignantMatiereClasses);
+
+                // Supprimer la classe elle-même
                 context.Classes.Remove(classe);
+
+                // Enregistrer les modifications
                 context.SaveChanges();
             }
         }
+
 
         public void AddEleveToClasse(Classe classe, Eleve eleve)
         {

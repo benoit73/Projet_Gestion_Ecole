@@ -15,6 +15,8 @@ public partial class EnseignantMatiereClasse
 
     public virtual Classe Classe { get; set; } = null!;
 
+    public virtual ICollection<Cour> Cours { get; set; } = new List<Cour>();
+
     public virtual Enseignant Enseignant { get; set; } = null!;
 
     public virtual Matiere Matiere { get; set; } = null!;

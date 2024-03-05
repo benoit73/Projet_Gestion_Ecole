@@ -24,7 +24,7 @@ namespace projet_ga_v2.DAO
             {
                 var EnseignantsMatiere = context.Enseignants
                     .Include(ens => ens.Matieres)
-                    .Include(ens => ens.Classes)
+                    .Include(ens => ens.EnseignantMatiereClasses)
                     .ToList();
                 return EnseignantsMatiere;
             }
@@ -50,7 +50,7 @@ namespace projet_ga_v2.DAO
                 }
                 context.SaveChanges();
 
-              
+
             }
         }
 
@@ -63,17 +63,6 @@ namespace projet_ga_v2.DAO
             }
         }
 
-        public List<Enseignant> GetAllEnseignantsExeptInClass(Classe classe)
-        {
-            using (var context = new Benoit73SymfonyV5Context())
-            {
-                var EnseignantsClasse = context.Enseignants
-                    .Include(ens => ens.Classes)
-                    .Where(ens => !ens.Classes.Contains(classe))
-                    .ToList();
-                return EnseignantsClasse;
-            }
-        }
 
         public List<Enseignant> GetAllEnseignantsInMatiereNotInClasse(Matiere matiere, Classe classe)
         {
@@ -81,44 +70,54 @@ namespace projet_ga_v2.DAO
             {
                 var EnseignantsMatiere = context.Enseignants
                     .Include(ens => ens.Matieres)
-                    .Include(ens => ens.Classes)
-                    .Where(ens => ens.Matieres == matiere && !ens.Classes.Contains(classe))
+                    .Include(ens => ens.EnseignantMatiereClasses)
+                    .Where(ens => ens.Matieres.Contains(matiere))
                     .ToList();
-                return EnseignantsMatiere;
-            }             
-        }
-
-
-        public void AddEnseignantToClass(Enseignant enseignant, Classe classe)
-        {
-            using (var context = new Benoit73SymfonyV5Context())
-            {
-                var enseignantToUpdate = context.Enseignants.Include(e => e.Classes)
-                                                          .Single(e => e.Id == enseignant.Id);
-                var classeToAdd = context.Classes.Single(c => c.Id == classe.Id);
-                enseignantToUpdate.Classes.Add(classeToAdd);
-                context.SaveChanges();
-            }
-        }
-
-        public void RemoveEnseignantFromClass(Enseignant enseignant, Classe classe)
-        {
-            using (var context = new Benoit73SymfonyV5Context())
-            {
-                // Charger l'enseignant avec ses classes depuis la base de données
-                var enseignantToUpdate = context.Enseignants.Include(e => e.Classes)
-                                                          .Single(e => e.Id == enseignant.Id);
-
-                // Recherche de la classe à supprimer dans la collection de classes de l'enseignant
-                var classeToRemove = enseignantToUpdate.Classes.SingleOrDefault(c => c.Id == classe.Id);
-                if (classeToRemove != null)
+                foreach (Enseignant enseignant in EnseignantsMatiere.ToList())
                 {
-                    // Supprimer la classe de la collection de classes de l'enseignant
-                    enseignantToUpdate.Classes.Remove(classeToRemove);
-                    context.SaveChanges();
+                    foreach (EnseignantMatiereClasse emc in enseignant.EnseignantMatiereClasses)
+                    {
+                        if (emc.ClasseId == classe.Id && emc.MatiereId == matiere.Id)
+                        {
+                            EnseignantsMatiere.Remove(enseignant);
+                        }
+                    }
                 }
+                return EnseignantsMatiere;
             }
         }
+
+
+        //public void AddEnseignantToClass(Enseignant enseignant, Classe classe)
+        //{
+        //    using (var context = new Benoit73SymfonyV5Context())
+        //    {
+        //        var enseignantToUpdate = context.Enseignants.Include(e => e.Classes)
+        //                                                  .Single(e => e.Id == enseignant.Id);
+        //        var classeToAdd = context.Classes.Single(c => c.Id == classe.Id);
+        //        enseignantToUpdate.Classes.Add(classeToAdd);
+        //        context.SaveChanges();
+        //    }
+        //}
+
+        //public void RemoveEnseignantFromClass(Enseignant enseignant, Classe classe)
+        //{
+        //    using (var context = new Benoit73SymfonyV5Context())
+        //    {
+        //        // Charger l'enseignant avec ses classes depuis la base de données
+        //        var enseignantToUpdate = context.Enseignants.Include(e => e.Classes)
+        //                                                  .Single(e => e.Id == enseignant.Id);
+
+        //        // Recherche de la classe à supprimer dans la collection de classes de l'enseignant
+        //        var classeToRemove = enseignantToUpdate.Classes.SingleOrDefault(c => c.Id == classe.Id);
+        //        if (classeToRemove != null)
+        //        {
+        //            // Supprimer la classe de la collection de classes de l'enseignant
+        //            enseignantToUpdate.Classes.Remove(classeToRemove);
+        //            context.SaveChanges();
+        //        }
+        //    }
+        //}
 
         public void UpdateEnseignant(Enseignant enseignant)
         {

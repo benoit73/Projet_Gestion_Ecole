@@ -33,6 +33,11 @@ namespace projet_ga_v2.View
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
+            if (TbMatiere.Text == "")
+            {
+                MessageBox.Show("Veuillez remplir le champ");
+                return;
+            }
             string nom = TbMatiere.Text;
             Matiere matiere = new Matiere();
             matiere.NomMatiere = nom;

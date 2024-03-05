@@ -21,8 +21,8 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="TbUsername" Grid.Row="1" Grid.Column="1" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Style="{StaticResource RoundedTextBoxStyle}" Text="Username"/>
-        <TextBox x:Name="TbPassword" Grid.Row="2" Grid.Column="1" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Style="{StaticResource RoundedTextBoxStyle}" Text="Password"/>
+        <TextBox x:Name="TbUsername" Grid.Row="1" Grid.Column="1" TextAlignment="Center" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Style="{StaticResource RoundedTextBoxStyle}" Text="Username"/>
+        <TextBox x:Name="TbPassword" Grid.Row="2" Grid.Column="1" TextAlignment="Center" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Style="{StaticResource RoundedTextBoxStyle}" Text="Password"/>
         <Button x:Name="BtnValider" Grid.Column="1" Grid.Row="3" Click="BtnValider_Click" Style="{StaticResource RoundedButtonStyle}" Content="Login !"/>
         <Button Width="50" Height="50" Background="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Left" Click="Button_Click" BorderBrush="{x:Null}" >
             <Image Source="pack://application:,,,/Ressources/engrenage.png"/>

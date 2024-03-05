@@ -21,11 +21,12 @@ namespace projet_ga_v2.View
     public partial class WindowEdt : Window
     {
         Classe classe;
-        Enseignant enseignantSelected;
+        EnseignantMatiereClasse enseignantMatiereClasseSelected;
         DAO_Matiere dao_matiere;
         DAO_Enseignant dao_enseignant;
         DAO_Classe dao_classe;
         DAO_Cour dao_cour;
+        DAO_EnseignantMatiereClasse dao_enseignantMatiereClasse;
         int semaine = 1;
         int nbTb = 1;
         int first = 0;
@@ -36,6 +37,7 @@ namespace projet_ga_v2.View
             dao_matiere = new DAO_Matiere();
             dao_enseignant = new DAO_Enseignant();
             dao_cour = new DAO_Cour();
+            dao_enseignantMatiereClasse = new DAO_EnseignantMatiereClasse();
             classe = dao_classe.GetClasseById(classee);
             InitMatieres();
             InitAddMatiere();
@@ -44,6 +46,58 @@ namespace projet_ga_v2.View
             LbDuree.SelectedItem = LbDuree.Items[1];
         }
 
+
+        public TextBlock TbCour2(EnseignantMatiereClasse emc)
+        {
+            TextBlock tb = new TextBlock();
+            tb.Style = (Style)FindResource("EdtTextBlockStyle");
+            tb.IsHitTestVisible = false;
+            ListBoxItem selectedItem = (ListBoxItem)LbDuree.SelectedItem;
+            int tagValue = int.Parse(selectedItem.Tag.ToString());
+            Grid.SetRowSpan(tb, tagValue);
+            tb.Name = "tb" + nbTb;
+            tb.Text = emc.Matiere.NomMatiere + "\n" + emc.Enseignant.NomEnseignant + " " + emc.Enseignant.PrenomEnseignant;
+            nbTb++;
+            return tb;
+        }
+        private TextBlock TbCour(Cour cours)
+        {
+            TextBlock tb = new TextBlock();
+            tb.Style = (Style)FindResource("EdtTextBlockStyle");
+            tb.Name = "tb" + nbTb;
+            tb.Text = cours.EnseignantMatiereClasse.Matiere.NomMatiere + "\n" + cours.EnseignantMatiereClasse.Enseignant.NomEnseignant + " " + cours.EnseignantMatiereClasse.Enseignant.PrenomEnseignant;
+            nbTb++;
+            return tb;
+        }
+        private Button BtnMatiere(EnseignantMatiereClasse emc)
+        {
+            Button btn = new Button();
+            StackPanel sp2 = new StackPanel();
+            sp2.Orientation = Orientation.Horizontal;
+            btn.Content = sp2;
+            btn.Click += BtnMatiere_Click;
+            btn.Tag = emc;
+            StackPanel sp = new StackPanel();
+            sp.Orientation = Orientation.Vertical;
+            sp2.Children.Add(sp);
+
+            TextBlock tbMatiere = new TextBlock();
+            tbMatiere.Text = emc.Matiere.NomMatiere;
+            sp.Children.Add(tbMatiere);
+
+            TextBlock tbProf = new TextBlock();
+            tbProf.Text = emc.Enseignant.NomEnseignant + " " + emc.Enseignant.PrenomEnseignant;
+            sp.Children.Add(tbProf);
+
+            Button btnSuppr = new Button();
+            btnSuppr.Content = "Supprimer";
+            btnSuppr.Click += BtnSupprMatiere_Click;
+            btnSuppr.Tag = emc;
+            sp2.Children.Add(btnSuppr);
+
+            
+            return btn;
+        }// créer un modele de bouton pour chaque matiere et prof de la classe
         public void SetRectangles()
         {
             for (int i = 1; i <= gridEdt.RowDefinitions.Count; i++)
@@ -62,14 +116,9 @@ namespace projet_ga_v2.View
                 }
             }
         }
-        private TextBlock TbCour(Cour cours)
+        public void InitClasse()
         {
-            TextBlock tb = new TextBlock();
-            tb.Background = Brushes.LightBlue;
-            tb.Name = "tb" + nbTb;
-            tb.Text = "test"; /*cours.Enseignant.Matiere.NomMatiere + "\n" + cours.Enseignant.NomEnseignant + " " + cours.Enseignant.PrenomEnseignant;*/
-            nbTb++;
-            return tb;
+            classe = dao_classe.GetClasseById(classe);
         }
         public void InitEdt()
         {
@@ -95,15 +144,19 @@ namespace projet_ga_v2.View
             }
 
 
-            foreach (Cour cours in classe.Cours)
+            foreach (EnseignantMatiereClasse emc in classe.EnseignantMatiereClasses)
             {
-                if (cours.Semaine == semaine)
+                foreach (Cour cours in emc.Cours)
                 {
-                    TextBlock tb = TbCour(cours);
-                    Grid.SetRow(tb, cours.Debut - 15);
-                    Grid.SetColumn(tb, cours.Jour);
-                    Grid.SetRowSpan(tb, cours.Duree);
-                    gridEdt.Children.Add(tb);
+                    if (cours.Semaine == semaine)
+                    {
+                        TextBlock tb = TbCour(cours);
+                        Grid.SetRow(tb, cours.Debut - 15);
+                        Grid.SetColumn(tb, cours.Jour);
+                        Grid.SetRowSpan(tb, cours.Duree);
+                        gridEdt.Children.Add(tb);
+                    }
+
                 }
 
             }
@@ -111,47 +164,22 @@ namespace projet_ga_v2.View
         private void BtnSupprMatiere_Click(object sender, RoutedEventArgs e)
         {
             Button btn = (Button)sender;
-            Enseignant enseignant = (Enseignant)btn.Tag;
-            dao_enseignant.RemoveEnseignantFromClass(enseignant, classe);
-            classe.Enseignants.Remove(enseignant);
+            EnseignantMatiereClasse emc = (EnseignantMatiereClasse)btn.Tag;
+            Enseignant enseignant = emc.Enseignant;
+            Matiere matiere = emc.Matiere;
+            dao_enseignantMatiereClasse.DeleteEnseignantMatiereClasse(enseignant, matiere, classe);
+            InitMatieres();
             InitEdt();
-        }// supprime une matiere et un prof de la classe
-        private Button BtnMatiere(Enseignant enseignant)
-        {
-            Button btn = new Button();
-            StackPanel sp2 = new StackPanel();
-            sp2.Orientation = Orientation.Horizontal;
-            btn.Content = sp2;
-            btn.Click += BtnMatiere_Click;
-            btn.Tag = enseignant;
-            StackPanel sp = new StackPanel();
-            sp.Orientation = Orientation.Vertical;
-            sp2.Children.Add(sp);
-
-            TextBlock tbMatiere = new TextBlock();
-            tbMatiere.Text = "test";
-            sp.Children.Add(tbMatiere);
-
-            TextBlock tbProf = new TextBlock();
-            tbProf.Text = enseignant.NomEnseignant + " " + enseignant.PrenomEnseignant;
-            sp.Children.Add(tbProf);
-
-            Button btnSuppr = new Button();
-            btnSuppr.Content = "Supprimer";
-            btnSuppr.Click += BtnSupprMatiere_Click;
-            btnSuppr.Tag = enseignant;
-            sp2.Children.Add(btnSuppr);
-
-
-            return btn;
-        }// créer un modele de bouton pour chaque matiere et prof de la classe
+        }
+        
         private void InitMatieres() // initialise la liste des matieres et des profs de la classe
         {
+            InitClasse();
             CbMatiereClasse.Items.Clear();
             TbNomClasse.Text = classe.NomClasse;
-            foreach (Enseignant enseignant in classe.Enseignants)
+            foreach (EnseignantMatiereClasse emc in classe.EnseignantMatiereClasses)
             {
-                Button btn = BtnMatiere(enseignant);
+                Button btn = BtnMatiere(emc);
                 CbMatiereClasse.Items.Add(btn);
             }
         }
@@ -167,9 +195,6 @@ namespace projet_ga_v2.View
             List<Matiere> matieres = dao_matiere.GetAllMatieres();
             LbMatiere.ItemsSource = matieres;
 
-            List<Enseignant> enseignants = dao_enseignant.GetAllEnseignantsExeptInClass(classe);
-            LbProf.ItemsSource = enseignants;
-
         }// initialise la fenetre d'ajout de matiere
         private void LbMatiere_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -183,9 +208,8 @@ namespace projet_ga_v2.View
             {
                 Matiere matiere = (Matiere)LbMatiere.SelectedItem;
                 Enseignant enseignant = (Enseignant)LbProf.SelectedItem;
-                dao_enseignant.AddEnseignantToClass(enseignant, classe);
+                dao_enseignantMatiereClasse.AddEnseignantMatiereClasse(enseignant, matiere, classe);
                 gridAdd.Visibility = Visibility.Hidden;
-                classe.Enseignants.Add(enseignant);
                 InitMatieres();
             }
             else
@@ -204,7 +228,7 @@ namespace projet_ga_v2.View
 
         private void BtnValiderEdt_Click(object sender, RoutedEventArgs e)
         {
-
+            Close();
         }
 
         private void BtnNext_Click(object sender, RoutedEventArgs e)
@@ -223,37 +247,18 @@ namespace projet_ga_v2.View
                 InitEdt();
             }
         }
-        private void BtnMatiere_Click(object sender, RoutedEventArgs e)
-        {
-            Button button = (Button)sender;
-            Enseignant enseignant = (Enseignant)button.Tag;
-            enseignantSelected = enseignant;
-        }
-
-        public TextBlock TbCour2(Enseignant enseignant)
-        {
-            TextBlock tb = new TextBlock();
-            tb.IsHitTestVisible = false;
-            tb.Background = Brushes.LightBlue;
-            ListBoxItem selectedItem = (ListBoxItem)LbDuree.SelectedItem;
-            int tagValue = int.Parse(selectedItem.Tag.ToString());
-            Grid.SetRowSpan(tb, tagValue);
-            tb.Name = "tb" + nbTb;
-            tb.Text = "test"; /*enseignant.Matieres.NomMatiere + "\n" + enseignant.NomEnseignant + " " + enseignant.PrenomEnseignant;*/
-            nbTb++;
-            return tb;
-        }
+        
 
         private void rectangle_MouseEnter(object sender, MouseEventArgs e)
         {
-            if (enseignantSelected != null)
+            if (enseignantMatiereClasseSelected != null)
             {
                 if (first > 0)
                 {
                     gridEdt.Children.Remove(gridEdt.Children[gridEdt.Children.Count - 1]);
                 }
 
-                TextBlock TbC = TbCour2(enseignantSelected);
+                TextBlock TbC = TbCour2(enseignantMatiereClasseSelected);
 
                 var cell = sender as UIElement;
                 if (cell != null)
@@ -266,7 +271,13 @@ namespace projet_ga_v2.View
             }
         }
 
+        private void BtnMatiere_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
 
+            EnseignantMatiereClasse emc = (EnseignantMatiereClasse)button.Tag;
+            enseignantMatiereClasseSelected = emc;
+        }
         private void rectangle_MouseDown(object sender, MouseEventArgs e)
         {
             if (gridEdt.Children[gridEdt.Children.Count - 1] is TextBlock)
@@ -278,8 +289,11 @@ namespace projet_ga_v2.View
                 cour.Debut = (Grid.GetRow(tb) + 15);
                 cour.Duree = Grid.GetRowSpan(tb);
                 cour.Semaine = semaine;
-                cour.EnseignantId = enseignantSelected.Id;
-                cour.ClasseId = classe.Id;
+                cour.EnseignantMatiereClasse = enseignantMatiereClasseSelected;
+                cour.EnseignantMatiereClasseId = enseignantMatiereClasseSelected.Id;
+                cour.EnseignantMatiereClasse.EnseignantId = enseignantMatiereClasseSelected.Enseignant.Id;
+                cour.EnseignantMatiereClasse.ClasseId = classe.Id;
+                cour.EnseignantMatiereClasse.MatiereId = enseignantMatiereClasseSelected.Matiere.Id;
                 dao_cour.AddCour(cour);
             }
         }

@@ -45,6 +45,7 @@ namespace projet_ga_v2.View
             TbNom.Text = "";
             TbPrenom.Text = "";
             TbDate.Text = "";
+            TbEmailParent.Text = "";
             MessageBox.Show("Elève ajouté");
         }
 

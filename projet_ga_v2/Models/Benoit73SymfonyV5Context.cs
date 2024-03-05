@@ -160,9 +160,7 @@ public partial class Benoit73SymfonyV5Context : DbContext
                 .ToTable("cour")
                 .UseCollation("utf8mb4_unicode_ci");
 
-            entity.HasIndex(e => e.ClasseId, "IDX_A71F964F8F5EA509");
-
-            entity.HasIndex(e => e.EnseignantId, "IDX_A71F964FE455FCC0");
+            entity.HasIndex(e => e.EnseignantMatiereClasseId, "IDX_A71F964F33ECEC1F");
 
             entity.Property(e => e.Id)
                 .HasColumnType("int(11)")
@@ -170,18 +168,15 @@ public partial class Benoit73SymfonyV5Context : DbContext
             entity.Property(e => e.Annee)
                 .HasColumnType("int(11)")
                 .HasColumnName("annee");
-            entity.Property(e => e.ClasseId)
-                .HasColumnType("int(11)")
-                .HasColumnName("classe_id");
             entity.Property(e => e.Debut)
                 .HasColumnType("int(11)")
                 .HasColumnName("debut");
             entity.Property(e => e.Duree)
                 .HasColumnType("int(11)")
                 .HasColumnName("duree");
-            entity.Property(e => e.EnseignantId)
+            entity.Property(e => e.EnseignantMatiereClasseId)
                 .HasColumnType("int(11)")
-                .HasColumnName("enseignant_id");
+                .HasColumnName("enseignant_matiere_classe_id");
             entity.Property(e => e.Jour)
                 .HasColumnType("int(11)")
                 .HasColumnName("jour");
@@ -189,15 +184,10 @@ public partial class Benoit73SymfonyV5Context : DbContext
                 .HasColumnType("int(11)")
                 .HasColumnName("semaine");
 
-            entity.HasOne(d => d.Classe).WithMany(p => p.Cours)
-                .HasForeignKey(d => d.ClasseId)
+            entity.HasOne(d => d.EnseignantMatiereClasse).WithMany(p => p.Cours)
+                .HasForeignKey(d => d.EnseignantMatiereClasseId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_A71F964F8F5EA509");
-
-            entity.HasOne(d => d.Enseignant).WithMany(p => p.Cours)
-                .HasForeignKey(d => d.EnseignantId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_A71F964FE455FCC0");
+                .HasConstraintName("FK_A71F964F33ECEC1F");
         });
 
         modelBuilder.Entity<DoctrineMigrationVersion>(entity =>
@@ -283,33 +273,6 @@ public partial class Benoit73SymfonyV5Context : DbContext
             entity.Property(e => e.PrenomEnseignant)
                 .HasMaxLength(255)
                 .HasColumnName("prenom_enseignant");
-
-            entity.HasMany(d => d.Classes).WithMany(p => p.Enseignants)
-                .UsingEntity<Dictionary<string, object>>(
-                    "EnseignantClasse",
-                    r => r.HasOne<Classe>().WithMany()
-                        .HasForeignKey("ClasseId")
-                        .HasConstraintName("FK_F670A5F48F5EA509"),
-                    l => l.HasOne<Enseignant>().WithMany()
-                        .HasForeignKey("EnseignantId")
-                        .HasConstraintName("FK_F670A5F4E455FCC0"),
-                    j =>
-                    {
-                        j.HasKey("EnseignantId", "ClasseId")
-                            .HasName("PRIMARY")
-                            .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0 });
-                        j
-                            .ToTable("enseignant_classe")
-                            .UseCollation("utf8mb4_unicode_ci");
-                        j.HasIndex(new[] { "ClasseId" }, "IDX_F670A5F48F5EA509");
-                        j.HasIndex(new[] { "EnseignantId" }, "IDX_F670A5F4E455FCC0");
-                        j.IndexerProperty<int>("EnseignantId")
-                            .HasColumnType("int(11)")
-                            .HasColumnName("enseignant_id");
-                        j.IndexerProperty<int>("ClasseId")
-                            .HasColumnType("int(11)")
-                            .HasColumnName("classe_id");
-                    });
 
             entity.HasMany(d => d.Matieres).WithMany(p => p.Enseignants)
                 .UsingEntity<Dictionary<string, object>>(

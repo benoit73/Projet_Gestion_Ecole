@@ -74,7 +74,7 @@
                 <DataGridTemplateColumn Header="Classes">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <ListBox ItemsSource="{Binding Classes}" DisplayMemberPath="NomClasse" />
+                            <ListBox ItemsSource="{Binding EnseignantMatiereClasses}" DisplayMemberPath="Classe.NomClasse" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
