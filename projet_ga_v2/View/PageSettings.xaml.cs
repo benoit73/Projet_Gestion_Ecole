@@ -23,6 +23,16 @@ namespace projet_ga_v2.View
         public PageSettings()
         {
             InitializeComponent();
+            Initialiser();
+        }
+
+        public void Initialiser()
+        {
+            TbDatabase_name.Text = Properties.Settings.Default.DbName;
+            TbServer_address.Text = Properties.Settings.Default.ServerAdress;
+            TbUsername.Text = Properties.Settings.Default.Username;
+            TbPassword.Text = Properties.Settings.Default.Pwd;
+            TbPort.Text = Properties.Settings.Default.Port;
         }
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
@@ -47,6 +57,12 @@ namespace projet_ga_v2.View
 
         private void BtnValider_Click(object sender, RoutedEventArgs e)
         {
+            Properties.Settings.Default.DbName = TbDatabase_name.Text;
+            Properties.Settings.Default.ServerAdress = TbServer_address.Text;
+            Properties.Settings.Default.Username = TbUsername.Text;
+            Properties.Settings.Default.Pwd = TbPassword.Text;
+            Properties.Settings.Default.Port = TbPort.Text;
+            Properties.Settings.Default.Save();
             PageConnection pageConnection = new PageConnection();
             NavigationService.Navigate(pageConnection);
         }

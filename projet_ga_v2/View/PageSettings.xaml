@@ -21,12 +21,14 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
         <TextBox x:Name="TbServer_address" Grid.Row="1" Grid.Column="1" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Style="{StaticResource RoundedTextBoxStyle}" Text="Server address"/>
         <TextBox x:Name="TbDatabase_name" Grid.Row="2" Grid.Column="1" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Style="{StaticResource RoundedTextBoxStyle}" Text="Database name"/>
-        <TextBox x:Name="TbUsername" Grid.Row="3" Grid.Column="1" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Style="{StaticResource RoundedTextBoxStyle}" Text="Username"/>
-        <TextBox x:Name="TbPassword" Grid.Row="4" Grid.Column="1" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Style="{StaticResource RoundedTextBoxStyle}" Text="Password"/>
-        <Button x:Name="BtnValider" Grid.Column="1" Grid.Row="5" Style="{StaticResource RoundedButtonStyle}" Content="Valider !" Click="BtnValider_Click"/>
+        <TextBox x:Name="TbPort" Grid.Row="3" Grid.Column="1" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Style="{StaticResource RoundedTextBoxStyle}" Text="Port"/>
+        <TextBox x:Name="TbUsername" Grid.Row="4" Grid.Column="1" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Style="{StaticResource RoundedTextBoxStyle}" Text="Username"/>
+        <TextBox x:Name="TbPassword" Grid.Row="5" Grid.Column="1" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Style="{StaticResource RoundedTextBoxStyle}" Text="Password"/>
+        <Button x:Name="BtnValider" Grid.Column="1" Grid.Row="6" Style="{StaticResource RoundedButtonStyle}" Content="Valider !" Click="BtnValider_Click"/>
     </Grid>
 </Page>

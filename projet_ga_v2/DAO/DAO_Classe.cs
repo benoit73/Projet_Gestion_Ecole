@@ -110,6 +110,18 @@ namespace projet_ga_v2.DAO
             }
         }
 
+        public IEnumerable<object> GetNbClassesNiveaux()
+        {
+            using (var context = new Benoit73SymfonyV5Context())
+            {
+                var nbClassesNiveau = context.Classes
+                    .GroupBy(c => c.Niveau)
+                    .Select(g => new { Niveau = g.Key, Count = g.Count() })
+                    .ToList();
+                return nbClassesNiveau;
+            }
+        }
+
 
     }
 }

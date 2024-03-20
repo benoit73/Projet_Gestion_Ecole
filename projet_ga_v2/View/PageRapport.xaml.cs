@@ -38,6 +38,7 @@ namespace projet_ga_v2.View
             TbTotalClasses.Content = daoClasse.GetAllClasses().Count;
             TbTotalEleves.Content = daoEleve.GetAllEleves().Count;
             TbTotalProf.Content = daoEnseignant.GetAllEnseignants().Count;
+            IEnumerable<object> test = daoClasse.GetNbClassesNiveaux();
         }
     }
 }
