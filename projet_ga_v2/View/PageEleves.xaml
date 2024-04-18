@@ -52,7 +52,7 @@
 
 
             </Grid>
-            <DataGrid x:Name="dataGrid" Grid.Row="1" AutoGenerateColumns="False" SelectionChanged="dataGrid_SelectionChanged">
+            <DataGrid x:Name="dataGrid" Grid.Row="1" AutoGenerateColumns="False" SelectionChanged="dataGrid_SelectionChanged" CanUserAddRows="False">
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="DataGridColumnHeader">
                     <Setter Property="HorizontalContentAlignment" Value="Center" />

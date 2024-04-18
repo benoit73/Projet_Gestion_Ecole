@@ -116,7 +116,7 @@ namespace projet_ga_v2.DAO
             {
                 var nbClassesNiveau = context.Classes
                     .GroupBy(c => c.Niveau)
-                    .Select(g => new { Niveau = g.Key, Count = g.Count() })
+                    .Select(g => new { Niveau = g.Key, Nb = g.Count() })
                     .ToList();
                 return nbClassesNiveau;
             }

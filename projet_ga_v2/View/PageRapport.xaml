@@ -99,13 +99,13 @@
             <Label Grid.Row="1" Grid.Column="0" BorderThickness="1,1,0,1" Style="{StaticResource LabelStyle}" >Total :</Label>
             <Label x:Name="TbTotalProf" Grid.Row="1" Grid.Column="1" BorderThickness="1,1,1,1" Style="{StaticResource LabelStyle}" >116</Label>
 
-            <Label Grid.Row="2" Grid.Column="0" BorderThickness="1,0,0,1" Style="{StaticResource LabelStyle}">En français :</Label>
+            <Label Grid.Row="2" Grid.Column="0" BorderThickness="1,0,0,1" Style="{StaticResource LabelStyle}">En seconde :</Label>
             <Label x:Name="TbPS" Grid.Row="2" Grid.Column="1" BorderThickness="1,0,1,1" Style="{StaticResource LabelStyle}">16</Label>
 
-            <Label Grid.Row="3" Grid.Column="0" BorderThickness="1,0,0,1" Style="{StaticResource LabelStyle}">En math :</Label>
+            <Label Grid.Row="3" Grid.Column="0" BorderThickness="1,0,0,1" Style="{StaticResource LabelStyle}">En première :</Label>
             <Label x:Name="TbPP" Grid.Row="3" Grid.Column="1" BorderThickness="1,0,1,1" Style="{StaticResource LabelStyle}">16</Label>
 
-            <Label Grid.Row="4" Grid.Column="0" BorderThickness="1,0,0,1" Style="{StaticResource LabelStyle}">En anglais :</Label>
+            <Label Grid.Row="4" Grid.Column="0" BorderThickness="1,0,0,1" Style="{StaticResource LabelStyle}">En terminal :</Label>
             <Label x:Name="TbPT" Grid.Row="4" Grid.Column="1" BorderThickness="1,0,1,1" Style="{StaticResource LabelStyle}">16</Label>
         </Grid>
         

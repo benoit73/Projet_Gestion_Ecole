@@ -10,6 +10,30 @@ namespace projet_ga_v2.DAO
 {
     internal class DAO_Enseignant
     {
+        public IEnumerable<object> GetEnseignantsByNiveauClasse()
+        {
+            using (var context = new Benoit73SymfonyV5Context())
+            {
+                var enseignants = context.Enseignants.Include(e => e.EnseignantMatiereClasses).Where(e => e.)ToList();
+                foreach (Enseignant enseignant in enseignants)
+                {
+                    foreach (EnseignantMatiereClasse emc in enseignant.EnseignantMatiereClasses)
+                    {
+                        if (emc.Classe == null && emc.ClasseId != 0)
+                        {
+                            emc.Classe = context.Classes.Single(c => c.Id == emc.ClasseId);
+                        }
+                    }
+                }
+                var enseignantsByNiveau = enseignants
+                    .Where(e => e.EnseignantMatiereClasses != null && e.NomEnseignant != "deleted" && e.PrenomEnseignant != "deleted") // Filtrer les enseignants ayant une classe non nulle
+                    .SelectMany(e => e.EnseignantMatiereClasses.Select(emc => new { Enseignant = e, Niveau = emc.Classe.Niveau }))
+                    .GroupBy(e => e.Niveau)
+                    .Select(g => new { Niveau = g.Key, Nb = g.Select(e => e.Enseignant).Distinct().Count() });
+
+                return enseignantsByNiveau;
+            }
+        }
         public List<Enseignant> GetAllEnseignants()
         {
             using (var context = new Benoit73SymfonyV5Context())
@@ -58,7 +82,11 @@ namespace projet_ga_v2.DAO
         {
             using (var context = new Benoit73SymfonyV5Context())
             {
-                context.Enseignants.Remove(enseignant);
+                Enseignant enseignant1 = context.Enseignants.Single(e => e.Id == enseignant.Id);
+                enseignant1.PrenomEnseignant = "deleted";
+                enseignant1.NomEnseignant = "deleted";
+                enseignant1.Email = "deleted";
+                context.Enseignants.Update(enseignant1);
                 context.SaveChanges();
             }
         }

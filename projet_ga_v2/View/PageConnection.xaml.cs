@@ -1,4 +1,5 @@
-﻿using System;
+﻿using projet_ga_v2.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,15 +21,27 @@ namespace projet_ga_v2.View
     /// </summary>
     public partial class PageConnection : Page
     {
+        DAO.DAO_Admin daoAdmin;
         public PageConnection()
         {
             InitializeComponent();
+            daoAdmin = new DAO.DAO_Admin();
         }
 
         private void BtnValider_Click(object sender, RoutedEventArgs e)
         {
-            PageHome pageHome = new PageHome();
-            NavigationService?.Navigate(pageHome);
+            Admin admin = new Admin();
+            admin.Username = TbUsername.Text;
+            admin.Password = TbPassword.Password;
+            if (daoAdmin.DoesAdminExist(admin))
+            {
+                PageHome pageHome = new PageHome();
+                NavigationService?.Navigate(pageHome);
+            }
+            else
+            {
+                MessageBox.Show("Identifiants incorrects");
+            }
         }
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
@@ -51,6 +64,20 @@ namespace projet_ga_v2.View
             }
         }
 
+        private void PasswordBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            PasswordBox passwordBox = (PasswordBox)sender;
+            passwordBox.Password = string.Empty;
+        }
+
+        private void PasswordBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            PasswordBox passwordBox = (PasswordBox)sender;
+            if (string.IsNullOrWhiteSpace(passwordBox.Password))
+            {
+                passwordBox.Password = "Password";
+            }
+        }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             PageSettings settings = new PageSettings();

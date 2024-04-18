@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:projet_ga_v2"
         mc:Ignorable="d"
-        Title="MainWindow" Height="900" Width="1600">
+        Title="Gestion d'absences" Height="900" Width="1600"
+        WindowStartupLocation="CenterScreen"
+        >
     <Grid>
         <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
     </Grid>

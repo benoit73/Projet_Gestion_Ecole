@@ -10,6 +10,18 @@ namespace projet_ga_v2.DAO
 {
     internal class DAO_Eleve
     {
+        public IEnumerable<object> GetElevesByNiveau()
+        {
+            using(var context = new Benoit73SymfonyV5Context())
+            {
+                var eleves = context.Eleves.Include(e => e.Classe).ToList();
+                var elevesByNiveau = eleves
+                    .Where(e => e.Classe != null) // Filtrer les élèves ayant une classe non nulle
+                    .GroupBy(e => e.Classe.Niveau)
+                    .Select(g => new { Niveau = g.Key, Nb = g.Count() });
+                return elevesByNiveau;
+            }
+        }
         public List<Eleve> GetAllEleves()
         {
             using (var context = new Benoit73SymfonyV5Context())
@@ -52,7 +64,16 @@ namespace projet_ga_v2.DAO
         {
             using (var context = new Benoit73SymfonyV5Context())
             {
-                context.Eleves.Remove(eleve);
+                Eleve eleve1 = context.Eleves.Include(e => e.Absences).Include(e => e.User).Single(e => e.Id == eleve.Id);
+                foreach (Absence absence in eleve1.Absences)
+                {
+                    context.Absences.Remove(absence);
+                }
+                if (eleve1.User != null)
+                {
+                    context.Users.Remove(eleve1.User);
+                }
+                context.Eleves.Remove(eleve1);
                 context.SaveChanges();
             }
         }

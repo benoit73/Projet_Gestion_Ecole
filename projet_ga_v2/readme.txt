@@ -4,3 +4,8 @@ Scaffold-DbContext "Server=mysql-benoit73.alwaysdata.net;Port=3306;Database=beno
 à faire : 
 - modifier classe->niveau pour mettre que les 3 niveaux
 - Modifier les Models pour mettre le nombre d'éleves par classe / prof par matiere en parametres 
+
+
+Symfony : 
+le tri de marche pas pour les parents 
+afficher le prénom des enfants et pas le nom de famille

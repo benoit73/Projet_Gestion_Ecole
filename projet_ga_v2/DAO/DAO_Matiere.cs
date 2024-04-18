@@ -21,7 +21,8 @@ namespace projet_ga_v2.DAO
         {
             using (var context = new Benoit73SymfonyV5Context())
             {
-                context.Matieres.Remove(matiere);
+                matiere.NomMatiere = "deleted";
+                context.Matieres.Update(matiere);
                 context.SaveChanges();
             }
         }
