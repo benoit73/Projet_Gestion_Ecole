@@ -64,7 +64,7 @@ namespace projet_ga_v2.View
                 // Gérer le cas où aucun résultat pour "seconde" n'a été trouvé
                 TbCS.Content = "0";
             }
-            var terminale = dynamicList.FirstOrDefault(obj => obj.Niveau == "Terminale");
+            var terminale = dynamicList.FirstOrDefault(obj => obj.Niveau == "Terminal");
             if (terminale != null)
             {
                 // Accéder au nombre de classes pour le niveau "terminale"
@@ -102,7 +102,7 @@ namespace projet_ga_v2.View
                 // Gérer le cas où aucun résultat pour "seconde" n'a été trouvé
                 TbES.Content = "0";
             }
-            var terminaleEleves = dynamicListEleves.FirstOrDefault(obj => obj.Niveau == "Terminale");
+            var terminaleEleves = dynamicListEleves.FirstOrDefault(obj => obj.Niveau == "Terminal");
             if (terminaleEleves != null)
             {
                 // Accéder au nombre d'élèves pour le niveau "terminale"
@@ -141,7 +141,7 @@ namespace projet_ga_v2.View
                 // Gérer le cas où aucun résultat pour "seconde" n'a été trouvé
                 TbPS.Content = "0";
             }
-            var terminaleEnseignants = dynamicListEnseignants.FirstOrDefault(obj => obj.Niveau == "Terminale");
+            var terminaleEnseignants = dynamicListEnseignants.FirstOrDefault(obj => obj.Niveau == "Terminal");
             if (terminaleEnseignants != null)
             {
                 // Accéder au nombre d'enseignants pour le niveau "terminale"

@@ -12,7 +12,7 @@ namespace projet_ga_v2.DAO
         {
             using (var context = new Benoit73SymfonyV5Context())
             {
-                var AllMatieres = context.Matieres.ToList();
+                var AllMatieres = context.Matieres.Where(e => e.NomMatiere != "deleted").ToList();
                 return AllMatieres;
             }
         }
@@ -36,14 +36,5 @@ namespace projet_ga_v2.DAO
             }
         }
 
-        public int GetNumberOfEnseignantsByMatiere(Matiere matiere)
-        {
-            using (var context = new Benoit73SymfonyV5Context())
-            {
-                //var NumberOfEnseignants = context.Enseignants.Where(e => e.MatiereId == matiere.Id).Count();
-                int NumberOfEnseignants = 0;
-                return NumberOfEnseignants;
-            }
-        }
     }
 }

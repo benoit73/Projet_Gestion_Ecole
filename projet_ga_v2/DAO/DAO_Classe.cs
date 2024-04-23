@@ -31,6 +31,7 @@ namespace projet_ga_v2.DAO
                 var classes = context.Classes.
                     Include("Eleves").
                     Include("EnseignantMatiereClasses.Matiere").
+                    Where(c => c.NomClasse != "deleted").
                     ToList();
                 return classes;
             }

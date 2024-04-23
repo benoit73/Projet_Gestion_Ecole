@@ -14,7 +14,7 @@ namespace projet_ga_v2.DAO
         {
             using (var context = new Benoit73SymfonyV5Context())
             {
-                var enseignants = context.Enseignants.Include(e => e.EnseignantMatiereClasses).Where(e => e.)ToList();
+                var enseignants = context.Enseignants.Include(e => e.EnseignantMatiereClasses).ToList();
                 foreach (Enseignant enseignant in enseignants)
                 {
                     foreach (EnseignantMatiereClasse emc in enseignant.EnseignantMatiereClasses)
@@ -38,7 +38,7 @@ namespace projet_ga_v2.DAO
         {
             using (var context = new Benoit73SymfonyV5Context())
             {
-                var Enseignants = context.Enseignants.ToList();
+                var Enseignants = context.Enseignants.Where(e => e.NomEnseignant != "deleted" && e.PrenomEnseignant != "deleted").ToList();
                 return Enseignants;
             }
         }
@@ -49,6 +49,7 @@ namespace projet_ga_v2.DAO
                 var EnseignantsMatiere = context.Enseignants
                     .Include(ens => ens.Matieres)
                     .Include(ens => ens.EnseignantMatiereClasses)
+                    .Where(e => e.NomEnseignant != "deleted" && e.PrenomEnseignant != "deleted")
                     .ToList();
                 return EnseignantsMatiere;
             }
@@ -100,6 +101,7 @@ namespace projet_ga_v2.DAO
                     .Include(ens => ens.Matieres)
                     .Include(ens => ens.EnseignantMatiereClasses)
                     .Where(ens => ens.Matieres.Contains(matiere))
+                    .Where(ens => ens.NomEnseignant != "deleted" && ens.PrenomEnseignant != "deleted")
                     .ToList();
                 foreach (Enseignant enseignant in EnseignantsMatiere.ToList())
                 {

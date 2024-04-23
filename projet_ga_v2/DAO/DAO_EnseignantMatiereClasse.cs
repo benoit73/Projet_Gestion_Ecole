@@ -14,8 +14,17 @@ namespace projet_ga_v2.DAO
             using (var context = new Benoit73SymfonyV5Context())
             {
                 EnseignantMatiereClasse enseignantMatiereClasse = context.EnseignantMatiereClasses.Single(emc => emc.EnseignantId == enseignant.Id && emc.MatiereId == matiere.Id && emc.ClasseId == classe.Id);
-                context.EnseignantMatiereClasses.Remove(enseignantMatiereClasse);
-                context.SaveChanges();
+                if (context.Absences.Any(a => a.Cour.EnseignantMatiereClasseId == enseignantMatiereClasse.Id))
+                {
+                    throw new Exception("Impossible de supprimer l'enseignant matiere classe car il y a des absences associées");
+                }
+                else
+                {
+                    context.Cours.RemoveRange(context.Cours.Where(c => c.EnseignantMatiereClasseId == enseignantMatiereClasse.Id));
+                    context.EnseignantMatiereClasses.Remove(enseignantMatiereClasse);
+                    context.SaveChanges();
+                }
+                
 
             }
         }

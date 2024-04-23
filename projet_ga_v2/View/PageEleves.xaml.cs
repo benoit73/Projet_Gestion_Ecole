@@ -20,7 +20,7 @@ namespace projet_ga_v2.View
 
         public void InitialiserDg()
         {
-            List<Eleve> Eleves = daoEleve.GetAllElevesWithClasse();
+            List<Eleve> Eleves = daoEleve.GetAllElevesWithClasseAndParent();
             dataGrid.ItemsSource = Eleves;
         }
 
@@ -95,6 +95,7 @@ namespace projet_ga_v2.View
             TbPrenom.Text = eleve.PrenomEleve;
             TbEmail.Text = eleve.MailEleve;
             TbDate.Text = eleve.DateNaissance;
+            TbEmailParent.Text = eleve.Parents.Email;
         }
     }
 }

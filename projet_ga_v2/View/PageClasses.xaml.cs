@@ -79,6 +79,7 @@ namespace projet_ga_v2.View
             classe = new Classe();
             classe.NomClasse = TbNom.Text;
             classe.Niveau = CbNiveau.Text;
+            classe.NbEleves = 0;
 
             if (classe.NomClasse == null || classe.Niveau == null )
             {
