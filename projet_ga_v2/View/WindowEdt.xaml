@@ -1,0 +1,173 @@
+﻿<Window x:Class="projet_ga_v2.View.WindowEdt"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:projet_ga_v2.View"
+        mc:Ignorable="d"
+        Title="WindowEdt" Height="900" Width="1600">
+    <Grid Background="WhiteSmoke">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="7*"/>
+        </Grid.RowDefinitions>
+        
+
+        <Grid x:Name="gridAdd" Grid.ColumnSpan="4" Grid.RowSpan="2" Panel.ZIndex="1" Background="#7FA59494" Visibility="Hidden">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Rectangle Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2" Fill="#FFFDFDFD"/>
+            <TextBlock Text="Matiere" Grid.Column="1" Grid.Row="1"/>
+            <TextBlock Text="Professeur" Grid.Column="1" Grid.Row="2"/>
+            <ListBox x:Name="LbMatiere" Grid.Column="2" Grid.Row="1" SelectionChanged="LbMatiere_SelectionChanged">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding NomMatiere}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox x:Name="LbProf" Grid.Column="2" Grid.Row="2">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding PrenomEnseignant}" />
+                            <TextBlock Text="{Binding NomEnseignant}" Margin="5,0,0,0"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <Button x:Name="BtnValidMatProf" Grid.Column="1" Grid.Row="3" Content="Valider" Click="BtnValidMatProf_Click"/>
+            <Button x:Name="BtnQuitMatProf" Grid.Column="2" Grid.Row="3" Content="Quitter" Click="BtnQuitMatProf_Click"/>
+
+
+        </Grid>
+
+        <Grid Grid.Column="0" x:Name="gridMatiere" Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Nom de la classe" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="TbNomClasse" Style="{StaticResource CenteredTextBlockStyle}"/>
+
+
+
+            <TextBlock Text="Matières : " Grid.Row="1" VerticalAlignment="Center" Style="{StaticResource CenteredTextBlockStyle}"/>
+            <StackPanel Orientation="Horizontal" Grid.Row="2">
+                <Button x:Name="BtnAddMatiere" Grid.Row="2" Click="BtnAddMatiere_Click" Style="{StaticResource RoundedButtonStyle}" HorizontalAlignment="Left">
+                    <TextBlock Text="Ajouter une matière" />
+                </Button>
+                <ListBox x:Name="LbDuree" HorizontalAlignment="Right">
+                    <ListBoxItem Content="30min" Tag="1"/>
+                    <ListBoxItem Content="1h" Tag="2"/>
+                    <ListBoxItem Content="1h30" Tag="3"/>
+                    <ListBoxItem Content="2h" Tag="4"/>
+                    <ListBoxItem Content="2h30" Tag="5"/>
+                    <ListBoxItem Content="3h" Tag="6"/>
+                    <ListBoxItem Content="3h30" Tag="7"/>
+                    <ListBoxItem Content="4h" Tag="8"/>
+                    <ListBoxItem Content="4h30h" Tag="9"/>
+                    <ListBoxItem Content="5h" Tag="10"/>
+                    <ListBoxItem Content="5h30" Tag="11"/>
+                    <ListBoxItem Content="6h" Tag="12"/>
+                    <ListBoxItem Content="6h30" Tag="13"/>
+                    <ListBoxItem Content="7h" Tag="14"/>
+                    <ListBoxItem Content="7h30" Tag="15"/>
+                    <ListBoxItem Content="8h" Tag="16"/>
+                </ListBox>
+            </StackPanel>
+
+
+            <ListBox x:Name="CbMatiereClasse" Grid.Row="3" Grid.RowSpan="6"/>
+            <Button x:Name="BtnValiderEdt" Content="Valider" Grid.Row="9" Click="BtnValiderEdt_Click" Style="{StaticResource RoundedButtonStyle}"/>
+        </Grid>
+
+        <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button x:Name="BtnPrevious" Content="Précédent" Click="BtnPrevious_Click" Style="{StaticResource RoundedButtonStyle}"/>
+            <TextBlock x:Name="TbSemaine" Text="Semaine 1"  Style="{StaticResource CenteredTextBlockStyle}" />
+            <Button x:Name="BtnNext" Content="Suivant" Click="BtnNext_Click" Style="{StaticResource RoundedButtonStyle}"/>
+        </StackPanel>
+
+        <Grid x:Name="gridEdt" Margin="30,30,30,30" Background="Beige" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="Lundi" Grid.Column="1" Grid.Row="0"/>
+            <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="Mardi" Grid.Column="2" Grid.Row="0"/>
+            <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="Mercredi" Grid.Column="3" Grid.Row="0"/>
+            <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="Jeudi" Grid.Column="4" Grid.Row="0"/>
+            <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="Vendredi" Grid.Column="5" Grid.Row="0"/>
+            <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="Samedi" Grid.Column="6" Grid.Row="0"/>
+
+            <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="8h" Grid.Column="0" Grid.Row="1"/>
+            <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="9h" Grid.Column="0" Grid.Row="3"/>
+            <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="10h" Grid.Column="0" Grid.Row="5"/>
+            <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="11h" Grid.Column="0" Grid.Row="7"/>
+            <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="12h" Grid.Column="0" Grid.Row="9"/>
+            <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="13h" Grid.Column="0" Grid.Row="11"/>
+            <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="14h" Grid.Column="0" Grid.Row="13"/>
+            <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="15h" Grid.Column="0" Grid.Row="15"/>
+            <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="16h" Grid.Column="0" Grid.Row="17"/>
+            <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="17h" Grid.Column="0" Grid.Row="19"/>
+            <TextBlock Style="{StaticResource CenteredTextBlockStyle}" Text="18h" Grid.Column="0" Grid.Row="21"/>
+
+        </Grid>
+    </Grid>
+</Window>
